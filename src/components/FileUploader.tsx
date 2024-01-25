@@ -2,9 +2,12 @@
 
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
+import { useFormStatus } from "react-dom";
 
 function FileUploader() {
   const [file, setFile] = useState<File | null>(null);
+
+  const { pending } = useFormStatus();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.currentTarget.files && setFile(e.currentTarget.files[0]);
@@ -34,7 +37,7 @@ function FileUploader() {
         )}
       </div>
       <button className="p-2 border w-full my-4 text-white font-medium bg-emerald-950 text-sm">
-        Upload
+        {pending ? "Uploading..." : "Upload"}
       </button>
     </>
   );
